@@ -85,7 +85,7 @@ public class Worksheet2 implements Worksheet2Interface {
         }
     }
 
-    // Exercise 7
+    // Exercise 7 test
 
     public static int max(Tree a) {
 
@@ -100,25 +100,10 @@ public class Worksheet2 implements Worksheet2Interface {
 
     // Exercise 8
     public static Tree delete(int x, Tree a) {
-
-        if (x < a.getValue()) {
-                return delete(x, a.getLeft());
-        } else if (x > a.getValue()) {
-                return delete(x, a.getRight());
-        } else {
-            if (left != null && right != null) {
-                this.value = right.minValue();
-                right.remove(this.value, a);
-            } else if (parent.left == a) {
-                parent.left = (left != null) ? left : right;
-            } else if (parent.right == a) {
-                parent.right = (left != null) ? left : right;
-            }
-            return true;
-        }
+        return a;
     }
 
-}
+
 
     // Exercise 9
     public static boolean isHeightBalanced(Tree a) {
