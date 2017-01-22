@@ -85,7 +85,7 @@ public class Worksheet2 implements Worksheet2Interface {
         }
     }
 
-    // Exercise 7 test
+    // Exercise 7 test again
 
     public static int max(Tree a) {
 
