@@ -136,13 +136,13 @@ public class Worksheet2 implements Worksheet2Interface {
                 new Tree(8, new Tree(7, new Tree(), new Tree()),
                         new Tree(9, new Tree(), new Tree())));
 
-        System.out.println(negateAll(t));
-        System.out.println(t);
-        System.out.println(mirror(t));
-        System.out.println(postorder(t));
-        System.out.println(allPositive(t));
-        System.out.println(isSearchTree(t));
-        printDescending(t);
+//        System.out.println(negateAll(t));
+//        System.out.println(t);
+//        System.out.println(mirror(t));
+//        System.out.println(postorder(t));
+//        System.out.println(allPositive(t));
+//        System.out.println(isSearchTree(t));
+//        printDescending(t);
         System.out.println(max(t));
 
 
