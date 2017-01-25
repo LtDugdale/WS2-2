@@ -49,7 +49,7 @@ public class Worksheet2 implements Worksheet2Interface {
     /**
      * Exercise 3: Postorder traversal (10%)
      *
-     * Given a tree a, produce and return a list containing the values in a by trvaersing the nodes in postorder,
+     * Given a tree a, produce and return a list containing the values in a by traversing the nodes in postorder,
      * i.e., for every node, all the values in the left subtree should be listed first, then all the values in the right
      * subtree and then finally the value in the node itself.
      * Hint: Recall the method for inorder traversal done in the Lecture.
@@ -79,9 +79,7 @@ public class Worksheet2 implements Worksheet2Interface {
     public static boolean allPositive(Tree a) {
 
         if (a.isEmpty()) {
-            throw new IllegalStateException("The tree is empty");
-        } else if ( a.getLeft().isEmpty() || a.getRight().isEmpty()  ){
-            return ( a.getValue() > 0 );
+            return true;
         } else if (a.getValue() < 0) {
             return false;
         } else{
@@ -102,7 +100,7 @@ public class Worksheet2 implements Worksheet2Interface {
     public static boolean isSearchTree(Tree a) {
 
         if (a.isEmpty()) {
-            throw new IllegalStateException("The tree is empty");
+            return true;
         } else if ( a.getLeft().isEmpty() || a.getRight().isEmpty()  ){
             return true;
         } else if ( a.getLeft().getValue() > a.getValue() || a.getRight().getValue() < a.getValue() ) {
@@ -179,65 +177,212 @@ public class Worksheet2 implements Worksheet2Interface {
         } else if ( x < a.getValue() ) {
             return new Tree(a.getValue(), delete(x, a.getLeft()), a.getRight());
         } else {
+            // value is found here
             if( !a.getRight().isEmpty() && !a.getLeft().isEmpty()) {
                 int M = max(a.getLeft());
                 return new Tree(M, delete(M, a.getLeft()), a.getRight());
             } else if (a.getLeft().isEmpty() && a.getRight().isEmpty()){
                 return delete(x, new Tree());
-            } else if (a.getLeft().isEmpty()){
-                return new Tree(a.getRight().getValue(), new Tree(), delete(x, a.getRight()));
-            } else  {
-                return new Tree(a.getLeft().getValue(), delete(x, a.getLeft()), new Tree());
+            } else if (a.getLeft().isEmpty() && !a.getRight().isEmpty()){
+                return new Tree(a.getRight().getValue(), new Tree(), new Tree());
+            } else {
+                return new Tree(a.getLeft().getValue(), new Tree(), new Tree());
             }
         }
-
     }
-
-
 
     // Exercise 9
     public static boolean isHeightBalanced(Tree a) {
-        return true;
+
+        if (a.isEmpty()) {
+            throw new IllegalStateException("The tree is empty");
+        } else if ( a.getLeft().isEmpty() || a.getRight().isEmpty()  ){
+            return true;
+        } else if ( (a.getLeft().getHeight() - a.getRight().getHeight()) > 1 ) {
+            return false;
+        } else {
+            return (isHeightBalanced(a.getLeft()) && isHeightBalanced(a.getRight()));
+        }
     }
 
     // Exercise 10
 
     public static Tree insertHB(int x, Tree a) {
-        return new Tree();
+
+        if (a.isEmpty()) {
+            return new Tree(x);
+        } else if (x < a.getValue()) {
+            return balance(new Tree(a.getValue(), insertHB(x, a.getLeft()), a.getRight()));
+        } else if (x > a.getValue()) {
+            return balance(new Tree(a.getValue(), a.getLeft(), insertHB(x, a.getRight())));
+        } else {
+             return a;
+        }
     }
 
     public static Tree deleteHB(int x, Tree a) {
-        return new Tree();
+
+        if (a.isEmpty()) {
+            return new Tree();
+        } else if ( x > a.getValue() ) {
+            return balance(new Tree(a.getValue(), a.getLeft(), delete(x, a.getRight())));
+        } else if ( x < a.getValue() ) {
+            return balance(new Tree(a.getValue(), delete(x, a.getLeft()), a.getRight()));
+        } else {
+            // value is found here
+            if( !a.getRight().isEmpty() && !a.getLeft().isEmpty()) {
+                int M = max(a.getLeft());
+                return new Tree(M, delete(M, a.getLeft()), a.getRight());
+            } else if (a.getLeft().isEmpty() && a.getRight().isEmpty()){
+                return delete(x, new Tree());
+            } else if (a.getLeft().isEmpty() && !a.getRight().isEmpty()){
+                return new Tree(a.getRight().getValue(), new Tree(), new Tree());
+            } else {
+                return new Tree(a.getLeft().getValue(), new Tree(), new Tree());
+            }
+        }
     }
 
+    /**
+     * @param a
+     * @return
+     */
+    public static Tree balance(Tree a){
+
+        Tree t = new Tree();
+        int height = (a.getLeft().getHeight() - a.getRight().getHeight() );
+
+        if (height < -1 ) {
+            // right left case
+            if (a.getRight().getLeft().getHeight() > a.getRight().getRight().getHeight()) {
+                return leftRotate(new Tree(a.getValue(), a.getLeft(), rightRotate(a.getRight())));
+            // left case
+            } else {
+                return leftRotate(a);
+            }
+        } else if (height > 1){
+            // left right case
+            if(a.getLeft().getRight().getHeight() >  a.getLeft().getLeft().getHeight()){
+                return rightRotate(new Tree(a.getValue(), leftRotate(a.getLeft()), a.getRight()));
+            // right case
+            } else {
+                return rightRotate(a);
+            }
+        } else {
+            return a;
+        }
+    }
+
+    /**
+     * Rotates left around the given node.
+     *
+     * @param pivot
+     * @return
+     */
+    public static Tree rightRotate(Tree pivot) {
+
+        Tree b = (pivot.getLeft().getRight().isEmpty())? new Tree():pivot.getLeft().getRight();
+        Tree right = new Tree(pivot.getValue(), b, pivot.getRight());
+        return new Tree(pivot.getLeft().getValue(), pivot.getLeft().getLeft(), right);
+    }
+
+    /**
+     * Rotates right around the given node.
+     *
+     * @param pivot
+     * @return
+     */
+    public static Tree leftRotate(Tree pivot) {
+
+            Tree b = (pivot.getRight().getLeft().isEmpty())? new Tree():pivot.getRight().getLeft();
+            Tree left = new Tree(pivot.getValue(), pivot.getLeft(), b);
+            return new Tree(pivot.getRight().getValue(), left, pivot.getRight().getRight());
+
+    }
+
+    /**
+     * Helper method to create balanced binary search trees quickly.
+     *
+     * @param a
+     * @param start
+     * @param end
+     * @return
+     */
+    public static Tree addToTree( int [] a, int start, int end){
+
+        if (start > end) {
+            return new Tree();
+        } else {
+            int mid = (start + end) / 2;
+            return new Tree(a[mid], addToTree(a, mid + 1, end), addToTree(a, start, mid - 1));
+        }
+    }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
 
         Tree t = new Tree (6,
                 new Tree(4,
                         new Tree( 2,
-                                new Tree(1, new Tree(), new Tree()),
+                                new Tree(1, new Tree(-2), new Tree()),
                                 new Tree()),
                         new Tree(5, new Tree(), new Tree())),
                 new Tree(8, new Tree(7, new Tree(), new Tree()),
                         new Tree(9, new Tree(), new Tree())));
 
+        int [] A = { 55, 53, 40, 38, 25, 20, 15,-4, -1};
+        Tree a = addToTree(A, 0, A.length -1);
+        Tree u = new Tree(10, new Tree(), new Tree(20, new Tree(15), new Tree(40)));
+        Tree v = new Tree(40, new Tree(30, new Tree(20), new Tree()), new Tree());
+        Tree w = new Tree(40, new Tree(), new Tree(50, new Tree(60), new Tree()));
+        Tree x = new Tree(40, new Tree(20, new Tree(), new Tree(25)), new Tree());
 
+        System.out.println(insertHB(56,insertHB(89,insertHB(78,insertHB(44, a)))));
+//        System.out.println("u" + u);
+//        System.out.println(balance(u));
+//        System.out.println("v" + v);
+//        System.out.println(balance(v));
+        //System.out.println(w);
+//        System.out.println("w" + w);
+//        System.out.println(balance(w));
+//        System.out.println("x" + x);
+//        System.out.println(balance(x));
 //        System.out.println(negateAll(t));
 //        System.out.println(t);
 //        System.out.println(mirror(t));
 //        System.out.println(postorder(t));
-//        System.out.println(allPositive(t));
+//        System.out.println(a);
+//          System.out.println(allPositive(a));
 //        System.out.println(isSearchTree(t));
 //        printDescending(t);
 //        System.out.println(max(t));
-        System.out.println(delete(4, t));
+//        System.out.println(delete(8, t));
+//        System.out.println(isHeightBalanced(t));
+//
+//        System.out.println(x);
+//        System.out.println(balance(x));
+        //System.out.println(v);
+        //System.out.println(leftRotate(x.getLeft()));
+       // System.out.println(rightRotate(v));
 
 
+        //System.out.println(rightRotate(v));
+
+//
+//        System.out.println(U);
+//        System.out.println(delete(25, U));
+
+        //System.out.println(a);
+        //System.out.println(insertHB(26, a));
+//        System.out.println("unbalanced");
+//        System.out.println(delete(40, a));
+//        System.out.println("balanced");
+        System.out.println("unbalanced");
+        System.out.println(delete(55, delete(38,delete(40, a))));
+        System.out.println("balanced");
+        System.out.println(deleteHB(55, deleteHB(38,deleteHB(40, a))));
         }
     }
 
