@@ -99,14 +99,24 @@ public class Worksheet2 implements Worksheet2Interface {
      */
     public static boolean isSearchTree(Tree a) {
 
+        return isSearchTreeHelper(a, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    /**
+     *
+     * @param a
+     * @param min
+     * @param max
+     * @return
+     */
+    public static boolean isSearchTreeHelper(Tree a, int min, int max) {
+
         if (a.isEmpty()) {
             return true;
-        } else if ( a.getLeft().isEmpty() || a.getRight().isEmpty()  ){
-            return true;
-        } else if ( a.getLeft().getValue() > a.getValue() || a.getRight().getValue() < a.getValue() ) {
+        } else if (a.getValue() < min || a.getValue() > max) {
             return false;
-        } else{
-            return (allPositive(a.getLeft()) && allPositive(a.getRight()));
+        } else {
+            return (isSearchTreeHelper(a.getLeft(), min, a.getValue() - 1) && isSearchTreeHelper(a.getRight(), a.getValue() + 1, max));
         }
     }
 
@@ -184,9 +194,9 @@ public class Worksheet2 implements Worksheet2Interface {
             } else if (a.getLeft().isEmpty() && a.getRight().isEmpty()){
                 return delete(x, new Tree());
             } else if (a.getLeft().isEmpty() && !a.getRight().isEmpty()){
-                return new Tree(a.getRight().getValue(), new Tree(), new Tree());
+                return new Tree(a.getRight().getValue(),  delete(x, a.getLeft()), new Tree());
             } else {
-                return new Tree(a.getLeft().getValue(), new Tree(), new Tree());
+                return new Tree(a.getLeft().getValue(), new Tree(), delete(x, a.getRight()));
             }
         }
     }
@@ -225,20 +235,20 @@ public class Worksheet2 implements Worksheet2Interface {
         if (a.isEmpty()) {
             return new Tree();
         } else if ( x > a.getValue() ) {
-            return balance(new Tree(a.getValue(), a.getLeft(), delete(x, a.getRight())));
+            return balance(new Tree(a.getValue(), a.getLeft(), deleteHB(x, a.getRight())));
         } else if ( x < a.getValue() ) {
-            return balance(new Tree(a.getValue(), delete(x, a.getLeft()), a.getRight()));
+            return balance(new Tree(a.getValue(), deleteHB(x, a.getLeft()), a.getRight()));
         } else {
             // value is found here
             if( !a.getRight().isEmpty() && !a.getLeft().isEmpty()) {
                 int M = max(a.getLeft());
-                return new Tree(M, delete(M, a.getLeft()), a.getRight());
+                return new Tree(M, deleteHB(M, a.getLeft()), a.getRight());
             } else if (a.getLeft().isEmpty() && a.getRight().isEmpty()){
-                return delete(x, new Tree());
+                return deleteHB(x, new Tree());
             } else if (a.getLeft().isEmpty() && !a.getRight().isEmpty()){
-                return new Tree(a.getRight().getValue(), new Tree(), new Tree());
+                return new Tree(a.getRight().getValue(),  deleteHB(x, a.getLeft()), new Tree());
             } else {
-                return new Tree(a.getLeft().getValue(), new Tree(), new Tree());
+                return new Tree(a.getLeft().getValue(), new Tree(), deleteHB(x, a.getRight()));
             }
         }
     }
@@ -297,7 +307,6 @@ public class Worksheet2 implements Worksheet2Interface {
             Tree b = (pivot.getRight().getLeft().isEmpty())? new Tree():pivot.getRight().getLeft();
             Tree left = new Tree(pivot.getValue(), pivot.getLeft(), b);
             return new Tree(pivot.getRight().getValue(), left, pivot.getRight().getRight());
-
     }
 
     /**
@@ -332,14 +341,14 @@ public class Worksheet2 implements Worksheet2Interface {
                 new Tree(8, new Tree(7, new Tree(), new Tree()),
                         new Tree(9, new Tree(), new Tree())));
 
-        int [] A = { 55, 53, 40, 38, 25, 20, 15,-4, -1};
+        int [] A = {60, 55, 50, 45, 40, 35, 30, 25, 10};
         Tree a = addToTree(A, 0, A.length -1);
         Tree u = new Tree(10, new Tree(), new Tree(20, new Tree(15), new Tree(40)));
         Tree v = new Tree(40, new Tree(30, new Tree(20), new Tree()), new Tree());
         Tree w = new Tree(40, new Tree(), new Tree(50, new Tree(60), new Tree()));
         Tree x = new Tree(40, new Tree(20, new Tree(), new Tree(25)), new Tree());
 
-        System.out.println(insertHB(56,insertHB(89,insertHB(78,insertHB(44, a)))));
+        //System.out.println(insertHB(56,insertHB(89,insertHB(78,insertHB(44, a)))));
 //        System.out.println("u" + u);
 //        System.out.println(balance(u));
 //        System.out.println("v" + v);
@@ -367,7 +376,7 @@ public class Worksheet2 implements Worksheet2Interface {
         //System.out.println(leftRotate(x.getLeft()));
        // System.out.println(rightRotate(v));
 
-
+        System.out.println( new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55)))));
         //System.out.println(rightRotate(v));
 
 //
@@ -379,10 +388,11 @@ public class Worksheet2 implements Worksheet2Interface {
 //        System.out.println("unbalanced");
 //        System.out.println(delete(40, a));
 //        System.out.println("balanced");
-        System.out.println("unbalanced");
-        System.out.println(delete(55, delete(38,delete(40, a))));
-        System.out.println("balanced");
-        System.out.println(deleteHB(55, deleteHB(38,deleteHB(40, a))));
+        //System.out.println(a);
+//        System.out.println("unbalanced");
+//        System.out.println(delete(55, delete(38,delete(40, a))));
+//        System.out.println("balanced");
+//        System.out.println(deleteHB(55, deleteHB(38,deleteHB(40, a))));
         }
     }
 
