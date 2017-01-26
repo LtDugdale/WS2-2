@@ -419,14 +419,18 @@ public class Worksheet2 implements Worksheet2Interface {
 //        System.out.println(new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55)))));
 //        System.out.println(U);
 //        System.out.println(delete(25, U));
-          Tree ui = new Tree(20, new Tree(10, new Tree(5, new Tree(3, new Tree(2, new Tree(1), new Tree()), new Tree()), new Tree()), new Tree(6)), new Tree(25));
-          System.out.println(deleteHB(-1, ui));
+//        Tree ui = new Tree(20, new Tree(10, new Tree(5, new Tree(3, new Tree(2, new Tree(1), new Tree()), new Tree()), new Tree()), new Tree(6)), new Tree(25));
+//        System.out.println(deleteHB(-1, ui));
 //        System.out.println(Worksheet2.insertHB(2, Worksheet2.insertHB(1,insertHB(10,insertHB(25, insertHB(60, insertHB(70, insertHB(100, po))))))));
 //        System.out.println(insertHB(26, a));
 //        System.out.println("unbalanced");
 //        System.out.println(delete(55, delete(38,delete(40, a))));
 //        System.out.println("balanced");
 //        System.out.println(deleteHB(55, deleteHB(38,deleteHB(40, a))));
+        System.out.println(balance(new Tree(10, new Tree(), new Tree(20, new Tree(15), new Tree()))));
+        System.out.println(balance(new Tree(10, new Tree(), new Tree(20, new Tree(), new Tree(30)))));
+        System.out.println(balance(new Tree(30, new Tree(20, new Tree(10), new Tree()), new Tree())));
+        System.out.println(balance(new Tree(30, new Tree(20, new Tree(), new Tree(25)), new Tree())));
         }
     }
 

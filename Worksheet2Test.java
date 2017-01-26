@@ -295,6 +295,8 @@ public class Worksheet2Test {
         Tree actual = Worksheet2.insertHB(2, Worksheet2.insertHB(1,a));
         Tree expected = new Tree(30, new Tree(20, new Tree(10, new Tree(2, new Tree(1), new Tree(5)), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
         assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
     @Test
@@ -304,6 +306,8 @@ public class Worksheet2Test {
         Tree actual = Worksheet2.insertHB(2, Worksheet2.insertHB(1,a));
         Tree expected = new Tree(1, new Tree(), new Tree(2));
         assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
     @Test
@@ -314,6 +318,7 @@ public class Worksheet2Test {
         boolean st =  Worksheet2.isSearchTree(Worksheet2.insertHB(2, Worksheet2.insertHB(1,Worksheet2.insertHB(30, Worksheet2.insertHB(-2, Worksheet2.insertHB(90, Worksheet2.insertHB(200, Worksheet2.insertHB(504, Worksheet2.insertHB(22, Worksheet2.insertHB(90, a))))))))) );
         boolean actual = hb && st;
         assertTrue(actual);
+
     }
 
     @Test
@@ -323,6 +328,8 @@ public class Worksheet2Test {
         Tree actual = Worksheet2.insertHB(30, a);
         Tree expected = new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
         assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
     /**
@@ -335,6 +342,8 @@ public class Worksheet2Test {
         Tree actual = Worksheet2.deleteHB(2, Worksheet2.deleteHB(1,a));
         Tree expected = new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
         assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
     @Test
@@ -344,33 +353,32 @@ public class Worksheet2Test {
         Tree actual = Worksheet2.deleteHB(30, Worksheet2.deleteHB(20, Worksheet2.deleteHB(50, a)));
         Tree expected = new Tree();
         assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
     @Test
     public void deleteHBTest3(){
 
-        Tree a = new Tree(30, new Tree(20), new Tree());
-        Tree actual = Worksheet2.deleteHB(30, Worksheet2.deleteHB(20, Worksheet2.deleteHB(50, a)));
-        Tree expected = new Tree();
+        Tree a = new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
+        Tree actual = Worksheet2.deleteHB(89807,  a);
+        Tree expected = new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
         assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
     @Test
     public void deleteHBTest4(){
 
-        Tree a = new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
-        Tree actual = Worksheet2.deleteHB(89807,  a);
-        Tree expected = new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
-        assertEquals(expected,actual);
-    }
-
-    @Test
-    public void deleteHBTest5(){
-
         Tree a = new Tree(10, new Tree(5, new Tree(1), new Tree(6)), new Tree(15, new Tree(14), new Tree(20, new Tree(19), new Tree())));
         Tree actual = Worksheet2.deleteHB(14,  a);
         Tree expected = new Tree(10, new Tree(5, new Tree(1), new Tree(6)), new Tree(19, new Tree(15), new Tree(20)));
         assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
+
+
     }
 
     /**
@@ -379,10 +387,45 @@ public class Worksheet2Test {
     @Test
     public void balanceTest1(){
 
-//        Tree a = new Tree(30, new Tree(20, new Tree(10, new Tree(2, new Tree(1), new Tree(5)), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
-//        Tree actual = Worksheet2.balance(2, Worksheet2.balance(1,a));
-//        Tree expected = new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55))));
-//        assertEquals(expected,actual);
+        Tree a = new Tree(10, new Tree(), new Tree(20, new Tree(15), new Tree()));
+        Tree actual = Worksheet2.balance(a);
+        Tree expected = new Tree(15, new Tree(10), new Tree(20));
+        assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
+    }
+
+    @Test
+    public void balanceTest2(){
+
+        Tree a = new Tree(10, new Tree(), new Tree(20, new Tree(), new Tree(30)));
+        Tree actual = Worksheet2.balance(a);
+        Tree expected = new Tree(20, new Tree(10), new Tree(30));
+        assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
+    }
+
+    @Test
+    public void balanceTest3(){
+
+        Tree a = new Tree(30, new Tree(20, new Tree(10), new Tree()), new Tree());
+        Tree actual = Worksheet2.balance(a);
+        Tree expected = new Tree(20, new Tree(10), new Tree(30));
+        assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
+    }
+
+    @Test
+    public void balanceTest4(){
+
+        Tree a = new Tree(30, new Tree(20, new Tree(), new Tree(25)), new Tree());
+        Tree actual = Worksheet2.balance(a);
+        Tree expected = new Tree(25, new Tree(20), new Tree(30));
+        assertEquals(expected,actual);
+        assertTrue(Worksheet2.isSearchTree(actual));
+        assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
 
