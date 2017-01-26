@@ -123,7 +123,7 @@ public class Worksheet2 implements Worksheet2Interface {
      * @param max must be > min.
      * @return boolean true if Tree a is a binary search tree and its values are >= min and <= max.
      */
-    private static boolean isSearchTreeHelper(Tree a, int min, int max) {
+    public static boolean isSearchTreeHelper(Tree a, int min, int max) {
 
         if (a.isEmpty()) {
             return true;
@@ -211,11 +211,11 @@ public class Worksheet2 implements Worksheet2Interface {
                 int M = max(a.getLeft());
                 return new Tree(M, delete(M, a.getLeft()), a.getRight());
             } else if (a.getLeft().isEmpty() && a.getRight().isEmpty()){
-                return delete(x, new Tree());
-            } else if (a.getLeft().isEmpty() && !a.getRight().isEmpty()){
-                return new Tree(a.getRight().getValue(),  delete(x, a.getLeft()), new Tree());
+                return new Tree();
+            } else if (a.getLeft().isEmpty() && !a.getRight().isEmpty()) {
+                return a.getRight();
             } else {
-                return new Tree(a.getLeft().getValue(), new Tree(), delete(x, a.getRight()));
+                return a.getLeft();
             }
         }
     }
@@ -252,7 +252,7 @@ public class Worksheet2 implements Worksheet2Interface {
 
     /**
      * This method is used to insert an integer into the given Tree a. Employs the balance method to
-     * maintain
+     * maintain the properties of an AVL tree.
      *
      * @param x Integer representing the value to be inserted.
      * @param a Binary search tree containing integers. Tree must already a height balanced binary search tree.
@@ -272,6 +272,8 @@ public class Worksheet2 implements Worksheet2Interface {
     }
 
     /**
+     * This method is used to delete an integer from the given Tree a. Employs the balance method to
+     * maintain the properties of an AVL tree.
      *
      * @param x Integer representing the value to be deleted.
      * @param a Binary search tree containing integers.
@@ -289,13 +291,13 @@ public class Worksheet2 implements Worksheet2Interface {
             // value is found here
             if( !a.getRight().isEmpty() && !a.getLeft().isEmpty()) {
                 int M = max(a.getLeft());
-                return new Tree(M, deleteHB(M, a.getLeft()), a.getRight());
+                return new Tree(M, delete(M, a.getLeft()), a.getRight());
             } else if (a.getLeft().isEmpty() && a.getRight().isEmpty()){
-                return deleteHB(x, new Tree());
+                return new Tree();
             } else if (a.getLeft().isEmpty() && !a.getRight().isEmpty()){
-                return new Tree(a.getRight().getValue(),  deleteHB(x, a.getLeft()), new Tree());
+                return a.getRight();
             } else {
-                return new Tree(a.getLeft().getValue(), new Tree(), deleteHB(x, a.getRight()));
+                return a.getLeft();
             }
         }
     }

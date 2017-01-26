@@ -241,6 +241,15 @@ public class Worksheet2Test {
         assertEquals(expected,actual);
     }
 
+    @Test
+    public void deleteTest5(){
+
+        Tree a = new Tree(25, new Tree(20, new Tree(), new Tree(22, new Tree(), new Tree(23))), new Tree());
+        Tree actual = Worksheet2.delete(20, a);
+        Tree expected = new Tree(25, new Tree(22, new Tree(), new Tree(23)), new Tree());
+        assertEquals(expected,actual);
+    }
+
     /**
      * Testing isHeightBalanced method
      */
