@@ -29,7 +29,7 @@ public class Worksheet2 implements Worksheet2Interface {
 
     /**
      * Exercise 2: Mirror image (10%)
-     * static Tree mirror(Tree a)
+     *
      * Given a tree a, construct and return a tree that is the mirror image of a along the left-right axis.
      * The tree on the left is the mirror image of the tree on the right, and vice versa.
      * ---------------------------------------------------------------------------------------------------------
@@ -203,7 +203,7 @@ public class Worksheet2 implements Worksheet2Interface {
         } else if ( x < a.getValue() ) {
             return new Tree(a.getValue(), delete(x, a.getLeft()), a.getRight());
         } else {
-            // value is found here
+            // If we're here we can get to work!
             if( !a.getRight().isEmpty() && !a.getLeft().isEmpty()) {
                 int M = max(a.getLeft());
                 return new Tree(M, delete(M, a.getLeft()), a.getRight());
@@ -285,7 +285,7 @@ public class Worksheet2 implements Worksheet2Interface {
         } else if ( x < a.getValue() ) {
             return balance(new Tree(a.getValue(), deleteHB(x, a.getLeft()), a.getRight()));
         } else {
-            // value is found here
+            // If we're here we can get to work!
             if( !a.getRight().isEmpty() && !a.getLeft().isEmpty()) {
                 int M = max(a.getLeft());
                 return new Tree(M, delete(M, a.getLeft()), a.getRight());
@@ -300,6 +300,8 @@ public class Worksheet2 implements Worksheet2Interface {
     }
 
     /**
+     * This method performs the balancing necessary to maintain an AVL tree. balancing is performed in constant time.
+     *
      * @param a Binary search tree containing integers.
      * @return The values of Tree a rotated in the appropriate manner
      */
@@ -393,7 +395,6 @@ public class Worksheet2 implements Worksheet2Interface {
         Tree w = new Tree(40, new Tree(), new Tree(50, new Tree(60), new Tree()));
         Tree x = new Tree(40, new Tree(20, new Tree(), new Tree(25)), new Tree());
 
-//        System.out.println(insertHB(56,insertHB(89,insertHB(78,insertHB(44, a)))));
 //        System.out.println("u" + u);
 //        System.out.println(balance(u));
 //        System.out.println("v" + v);
@@ -404,34 +405,24 @@ public class Worksheet2 implements Worksheet2Interface {
 //        System.out.println("x" + x);
 //        System.out.println(balance(x));
 //        System.out.println(negateAll(t));
-//        System.out.println(t);
 //        System.out.println(mirror(t));
 //        System.out.println(postorder(t));
-//        System.out.println(a);
 //        System.out.println(allPositive(a));
 //        System.out.println(isSearchTree(t));
 //        printDescending(t);
 //        System.out.println(max(t));
 //        System.out.println(delete(8, t));
 //        System.out.println(isHeightBalanced(t));
-//        System.out.println(x);
 //        System.out.println(balance(x));
-//        System.out.println(v);
 //        System.out.println(leftRotate(x.getLeft()));
-//        System.out.println(rightRotate(v));
 //        System.out.println(rightRotate(v));
 //        System.out.println(new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55)))));
 //        System.out.println(U);
 //        System.out.println(delete(25, U));
-          Tree t10 = new Tree(20, new Tree(10, new Tree(5, new Tree(3, new Tree(2, new Tree(1), new Tree()), new Tree()), new Tree()), new Tree(6)), new Tree(25));
-          System.out.println(deleteHB(-1, t10));
+          Tree ui = new Tree(20, new Tree(10, new Tree(5, new Tree(3, new Tree(2, new Tree(1), new Tree()), new Tree()), new Tree()), new Tree(6)), new Tree(25));
+          System.out.println(deleteHB(-1, ui));
 //        System.out.println(Worksheet2.insertHB(2, Worksheet2.insertHB(1,insertHB(10,insertHB(25, insertHB(60, insertHB(70, insertHB(100, po))))))));
-//        System.out.println(a);
 //        System.out.println(insertHB(26, a));
-//        System.out.println("unbalanced");
-//        System.out.println(delete(40, a));
-//        System.out.println("balanced");
-//        System.out.println(a);
 //        System.out.println("unbalanced");
 //        System.out.println(delete(55, delete(38,delete(40, a))));
 //        System.out.println("balanced");
