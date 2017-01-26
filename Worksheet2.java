@@ -13,14 +13,17 @@ public class Worksheet2 implements Worksheet2Interface {
      *
      * Given a tree of integers a, write a method that returns a new tree containing all the elements of a with
      * their sign negated, i.e., positive integers become negative and negative integers become positive.
+     * ---------------------------------------------------------------------------------------------------------
      *
-     * @param t
-     * @return
+     * @param t Tree containing integers
+     * @return Tree of integers containing all the elements of the of the given tree with their sign negated
      */
     public static Tree negateAll(Tree t) {
 
+        // base case
         if (t.isEmpty()) {
             return new Tree();
+        // recursive case
         } else {
             return new Tree(-t.getValue(), negateAll(t.getLeft()), negateAll(t.getRight()));
         }
@@ -32,15 +35,19 @@ public class Worksheet2 implements Worksheet2Interface {
      * static Tree mirror(Tree a)
      * Given a tree a, construct and return a tree that is the mirror image of a along the left-right axis.
      * The tree on the left is the mirror image of the tree on the right, and vice versa.
+     * ---------------------------------------------------------------------------------------------------------
      *
-     * @param t
-     * @return
+     * @param t Tree containing integers
+     * @return Tree of integers with the elements of tree t mirrored vertically
      */
     public static Tree mirror(Tree t) {
 
+        // base case
         if (t.isEmpty()) {
             return new Tree();
+        // recursive case
         } else {
+            // left and right reversed to create mirror
             return new Tree(t.getValue(),mirror(t.getRight()) , mirror(t.getLeft()));
         }
     }
@@ -53,9 +60,10 @@ public class Worksheet2 implements Worksheet2Interface {
      * i.e., for every node, all the values in the left subtree should be listed first, then all the values in the right
      * subtree and then finally the value in the node itself.
      * Hint: Recall the method for inorder traversal done in the Lecture.
+     * ---------------------------------------------------------------------------------------------------------
      *
-     * @param t
-     * @return
+     * @param t Tree containing integers
+     * @return List of type integer containing the elements of Tree t in a postorder sequence
      */
     public static List postorder(Tree t) {
 
@@ -72,8 +80,9 @@ public class Worksheet2 implements Worksheet2Interface {
      *
      * Given a tree of integers a, return a boolean value indicating whether all the values in its nodes are
      * positive, i.e., ≥ 0.
+     * ---------------------------------------------------------------------------------------------------------
      *
-     * @param a
+     * @param a Tree containing integers
      * @return
      */
     public static boolean allPositive(Tree a) {
@@ -93,6 +102,7 @@ public class Worksheet2 implements Worksheet2Interface {
      * Given a tree of integers a, write a method that returns a boolean value indicating whether a is a binary
      * search tree.
      * Hint: You may need helper functions to write this method. Document any helper functions you define.
+     * ---------------------------------------------------------------------------------------------------------
      *
      * @param a
      * @return
@@ -125,6 +135,7 @@ public class Worksheet2 implements Worksheet2Interface {
      *
      * Given a binary search tree of integers a, write a method that prints the values stored in it in descending
      * order. Do this without building a separate list of the values.
+     * ---------------------------------------------------------------------------------------------------------
      *
      * @param a
      */
@@ -148,6 +159,7 @@ public class Worksheet2 implements Worksheet2Interface {
      * balanced binary tree.
      * (Hint: In a binary search tree, all the values in the left subtree of a node are less than or equal to the
      * value in the node. So, the maximum value can’t be in the left subtree, right? Where can it be?)
+     * ---------------------------------------------------------------------------------------------------------
      *
      * @param a
      * @return
@@ -173,6 +185,7 @@ public class Worksheet2 implements Worksheet2Interface {
      * Your algorithm must take time proportional to the height of the tree, which is normally O(log n).
      * (Hint: As discussed in Lecture, the node of x may have two subtrees. In that case, the node cannot be
      * simply deleted. Rather, you need to replace x in that node with the maximum value of the left subtree.)
+     * ---------------------------------------------------------------------------------------------------------
      *
      * @param x
      * @param a
@@ -201,22 +214,42 @@ public class Worksheet2 implements Worksheet2Interface {
         }
     }
 
-    // Exercise 9
+    /**
+     * Exercise 9: Checking for height-balanced property (5%)
+     *
+     * Given a tree of integers a, check to see if it is height-balanced, returning a boolean value.
+     * ---------------------------------------------------------------------------------------------------------
+     *
+     * @param a
+     * @return
+     */
     public static boolean isHeightBalanced(Tree a) {
 
         if (a.isEmpty()) {
-            throw new IllegalStateException("The tree is empty");
-        } else if ( a.getLeft().isEmpty() || a.getRight().isEmpty()  ){
             return true;
-        } else if ( (a.getLeft().getHeight() - a.getRight().getHeight()) > 1 ) {
-            return false;
-        } else {
-            return (isHeightBalanced(a.getLeft()) && isHeightBalanced(a.getRight()));
+        } else if (Math.abs(a.getLeft().getHeight() - a.getRight().getHeight()) <= 1 && isHeightBalanced(a.getLeft()) && isHeightBalanced(a.getRight())) {
+            return true;
         }
+        return false;
     }
 
-    // Exercise 10
+    /**
+     * Exercise 10: Insertion/deletion with height-balancing (20%)
+     *
+     * Write modified versions of insert and delete methods that maintain the height-balanced property
+     * of trees. You should assume that the input trees are height-balanced binary search trees and produce
+     * results that are height-balanced binary search trees.
+     * Both the methods should work in O(log n) time.
+     * You may use the isHeightBalanced method in assert statements to ensure that your code works
+     * correctly.
+     */
 
+    /**
+     *
+     * @param x
+     * @param a
+     * @return
+     */
     public static Tree insertHB(int x, Tree a) {
 
         if (a.isEmpty()) {
@@ -230,6 +263,12 @@ public class Worksheet2 implements Worksheet2Interface {
         }
     }
 
+    /**
+     *
+     * @param x
+     * @param a
+     * @return
+     */
     public static Tree deleteHB(int x, Tree a) {
 
         if (a.isEmpty()) {
@@ -259,7 +298,6 @@ public class Worksheet2 implements Worksheet2Interface {
      */
     public static Tree balance(Tree a){
 
-        Tree t = new Tree();
         int height = (a.getLeft().getHeight() - a.getRight().getHeight() );
 
         if (height < -1 ) {
@@ -348,12 +386,12 @@ public class Worksheet2 implements Worksheet2Interface {
         Tree w = new Tree(40, new Tree(), new Tree(50, new Tree(60), new Tree()));
         Tree x = new Tree(40, new Tree(20, new Tree(), new Tree(25)), new Tree());
 
-        //System.out.println(insertHB(56,insertHB(89,insertHB(78,insertHB(44, a)))));
+//        System.out.println(insertHB(56,insertHB(89,insertHB(78,insertHB(44, a)))));
 //        System.out.println("u" + u);
 //        System.out.println(balance(u));
 //        System.out.println("v" + v);
 //        System.out.println(balance(v));
-        //System.out.println(w);
+//        System.out.println(w);
 //        System.out.println("w" + w);
 //        System.out.println(balance(w));
 //        System.out.println("x" + x);
@@ -363,32 +401,30 @@ public class Worksheet2 implements Worksheet2Interface {
 //        System.out.println(mirror(t));
 //        System.out.println(postorder(t));
 //        System.out.println(a);
-//          System.out.println(allPositive(a));
+//        System.out.println(allPositive(a));
 //        System.out.println(isSearchTree(t));
 //        printDescending(t);
 //        System.out.println(max(t));
 //        System.out.println(delete(8, t));
 //        System.out.println(isHeightBalanced(t));
-//
 //        System.out.println(x);
 //        System.out.println(balance(x));
-        //System.out.println(v);
-        //System.out.println(leftRotate(x.getLeft()));
-       // System.out.println(rightRotate(v));
-
-        System.out.println( new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55)))));
-        //System.out.println(rightRotate(v));
-
-//
+//        System.out.println(v);
+//        System.out.println(leftRotate(x.getLeft()));
+//        System.out.println(rightRotate(v));
+//        System.out.println(rightRotate(v));
+//        System.out.println(new Tree(30, new Tree(20, new Tree(10, new Tree(5), new Tree(15)), new Tree(25, new Tree(22), new Tree(27))), new Tree(40, new Tree(35, new Tree(32), new Tree(37)), new Tree(50, new Tree(45), new Tree(55)))));
 //        System.out.println(U);
 //        System.out.println(delete(25, U));
-
-        //System.out.println(a);
-        //System.out.println(insertHB(26, a));
+          Tree t10 = new Tree(20, new Tree(10, new Tree(5, new Tree(3, new Tree(2, new Tree(1), new Tree()), new Tree()), new Tree()), new Tree(6)), new Tree(25));
+          System.out.println(deleteHB(-1, t10));
+//        System.out.println(Worksheet2.insertHB(2, Worksheet2.insertHB(1,insertHB(10,insertHB(25, insertHB(60, insertHB(70, insertHB(100, po))))))));
+//        System.out.println(a);
+//        System.out.println(insertHB(26, a));
 //        System.out.println("unbalanced");
 //        System.out.println(delete(40, a));
 //        System.out.println("balanced");
-        //System.out.println(a);
+//        System.out.println(a);
 //        System.out.println("unbalanced");
 //        System.out.println(delete(55, delete(38,delete(40, a))));
 //        System.out.println("balanced");
