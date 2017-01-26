@@ -1,21 +1,14 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 /**
- * @author Alexandros Evangelidis
+ * @author Laurie Dugdale
  *
  *
  */
 
 public class Worksheet2Test {
 
-    /**
-     * Testing addToTree method
-     */
-    @Test
-    public void addToTreeTest1() {
-        int [] a = {60, 55, 50, 45, 40, 35, 30, 25, 10};
-        Tree actual = Worksheet2.addToTree(a, 0, a.length-1);
-    }
+
     /**
      * Testing negateAll method
      */
@@ -318,7 +311,6 @@ public class Worksheet2Test {
         boolean st =  Worksheet2.isSearchTree(Worksheet2.insertHB(2, Worksheet2.insertHB(1,Worksheet2.insertHB(30, Worksheet2.insertHB(-2, Worksheet2.insertHB(90, Worksheet2.insertHB(200, Worksheet2.insertHB(504, Worksheet2.insertHB(22, Worksheet2.insertHB(90, a))))))))) );
         boolean actual = hb && st;
         assertTrue(actual);
-
     }
 
     @Test
@@ -377,8 +369,6 @@ public class Worksheet2Test {
         assertEquals(expected,actual);
         assertTrue(Worksheet2.isSearchTree(actual));
         assertTrue(Worksheet2.isHeightBalanced(actual));
-
-
     }
 
     /**
