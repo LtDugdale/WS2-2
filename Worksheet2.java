@@ -1,6 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-
 /**
  * @author Laurie Dugdale
  * This class contains the solution for Worksheet2
