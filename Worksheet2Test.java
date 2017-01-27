@@ -371,6 +371,26 @@ public class Worksheet2Test {
         assertTrue(Worksheet2.isHeightBalanced(actual));
     }
 
+    @Test
+    public void deleteHBTest5(){
+        Tree t1;
+
+        t1 = new Tree(10,
+                new Tree(5, new Tree(1, new Tree(-5), new Tree(4)), new Tree(8, new Tree(6), new Tree(9))),
+                new Tree(15, new Tree(13, new Tree(11), new Tree(14)), new Tree(20, new Tree(16), new Tree(25))));
+        System.out.println(t1);
+        System.out.println(Worksheet2.isSearchTree(t1));
+
+        t1 = Worksheet2.deleteHB(9, t1);
+        assertTrue(Worksheet2.isHeightBalanced(t1));
+
+        t1 = Worksheet2.deleteHB(8, t1);
+        assertTrue(Worksheet2.isHeightBalanced(t1));
+
+        t1 = Worksheet2.deleteHB(6, t1);
+        assertTrue(Worksheet2.isHeightBalanced(t1));
+    }
+
     /**
      * Testing balance method
      */

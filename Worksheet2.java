@@ -11,6 +11,8 @@ public class Worksheet2 implements Worksheet2Interface {
      * Given a tree of integers a, write a method that returns a new tree containing all the elements of a with
      * their sign negated, i.e., positive integers become negative and negative integers become positive.
      * ---------------------------------------------------------------------------------------------------------
+     * negateAll accepts a Tree of integers, if the Tree is empty an empty tree is returned, otherwise
+     * all the integers have their signs negated. e.g. -5 becomes 5 or 7 becomes -7. If a 0 is passed it remains 0.
      *
      * @param t Tree containing integers.
      * @return Tree of integers containing all the elements of the of the given tree with their sign negated.
@@ -33,6 +35,20 @@ public class Worksheet2 implements Worksheet2Interface {
      * Given a tree a, construct and return a tree that is the mirror image of a along the left-right axis.
      * The tree on the left is the mirror image of the tree on the right, and vice versa.
      * ---------------------------------------------------------------------------------------------------------
+     * mirror accepts a tree of integers, mirror returns a Tree of integers with all the elements mirrored vertically.
+     * e.g.
+     *
+     *           5         |          5
+     *          / \        |        /   \
+     *         /   \       |       /     \
+     *        /     \      |      /       \
+     *       /       \     |     /         \
+     *      3         8    |    8           3
+     *     / \       /     |     \         / \
+     *    /   \     /      |      \       /   \
+     *   1     4   6       |       6     4     1
+     *
+     * If the Tree is empty an empty Tree is returned.
      *
      * @param t Tree containing integers.
      * @return Tree of integers with the elements of tree t mirrored vertically.
@@ -58,6 +74,8 @@ public class Worksheet2 implements Worksheet2Interface {
      * subtree and then finally the value in the node itself.
      * Hint: Recall the method for inorder traversal done in the Lecture.
      * ---------------------------------------------------------------------------------------------------------
+     * postorder accepts a Tree of integers and walks the nodes in postorder. Each node is added to a List of integers
+     * in the order that the tree is walked. If the Tree is empty an empty List is returned.
      *
      * @param t Tree containing integers.
      * @return List of type integer containing the elements of Tree t in a postorder sequence.
@@ -78,6 +96,8 @@ public class Worksheet2 implements Worksheet2Interface {
      * Given a tree of integers a, return a boolean value indicating whether all the values in its nodes are
      * positive, i.e., ≥ 0.
      * ---------------------------------------------------------------------------------------------------------
+     * allPositive accepts a Tree of integers. Returns true if all values are ≥ 0. Empty Tree returns true.
+     * Otherwise if values are less than 0 allPositive returns false.
      *
      * @param a Tree containing integers.
      * @return boolean true if all the integers in Tree a are  ≥ 0.
@@ -100,9 +120,10 @@ public class Worksheet2 implements Worksheet2Interface {
      * search tree.
      * Hint: You may need helper functions to write this method. Document any helper functions you define.
      * ---------------------------------------------------------------------------------------------------------
-     *
      * binary search tree is a tree in which for every node in the tree, all the values in the left subtree are
      * smaller than It and all their values in the right are larger. Therefore there are no duplicate copies.
+     * isSearchTree accepts a Tree of integers and returns false if the definition of a binary search tree is not met.
+     * Returns true if given Tree is a binary search tree or if given Tree is empty.
      *
      * @param a Binary search tree containing integers.
      * @return boolean true if the structure of Tree a satisfies the conditions of a binary search tree.
@@ -114,13 +135,15 @@ public class Worksheet2 implements Worksheet2Interface {
 
     /**
      * Helper method for isSearchTree
+     * Recursively checks the given tree against the given max and min keys. returns false if tree does not meet
+     * the properties of a binary search tree. Otherwise returns true. Also returns True if binary search tree is empty.
      *
      * @param a Binary search tree containing integers.
-     * @param min must be < max.
-     * @param max must be > min.
+     * @param min is the minimum key for the subtree, must be < max.
+     * @param max is the maximum key for the subtree, must be > min.
      * @return boolean true if Tree a is a binary search tree and its values are >= min and <= max.
      */
-    public static boolean isSearchTreeHelper(Tree a, int min, int max) {
+    private static boolean isSearchTreeHelper(Tree a, int min, int max) {
 
         if (a.isEmpty()) {
             return true;
@@ -137,8 +160,7 @@ public class Worksheet2 implements Worksheet2Interface {
      * Given a binary search tree of integers a, write a method that prints the values stored in it in descending
      * order. Do this without building a separate list of the values.
      * ---------------------------------------------------------------------------------------------------------
-     *
-     * Outputs the value of the given Tree a in descending order, values are separated with a space.
+     * Outputs the value of the given Tree a in descending order to the console, values are separated with a space.
      *
      * @param a Binary search tree containing integers.
      */
@@ -189,6 +211,8 @@ public class Worksheet2 implements Worksheet2Interface {
      * (Hint: As discussed in Lecture, the node of x may have two subtrees. In that case, the node cannot be
      * simply deleted. Rather, you need to replace x in that node with the maximum value of the left subtree.)
      * ---------------------------------------------------------------------------------------------------------
+     * delete is used to delete an integer from the given Tree a, returns a tree with the given integer removed.
+     * If the integer cannot be found a Tree with the same values as the original is returned.
      *
      * @param x Integer representing the value to be deleted.
      * @param a Binary search tree containing integers. Tree must already a height balanced binary search tree.
@@ -222,6 +246,9 @@ public class Worksheet2 implements Worksheet2Interface {
      *
      * Given a tree of integers a, check to see if it is height-balanced, returning a boolean value.
      * ---------------------------------------------------------------------------------------------------------
+     * isHeightBalanced accepts a Tree of integers and returns true if it is height balanced
+     * e.g. left height - right height <= 1 && left height - right height >= -1
+     * if Tree a is empty method returns true
      *
      * @param a Binary search tree containing integers.
      * @return Boolean true if Tree a is height balanced, or Tree a is empty.
@@ -248,8 +275,9 @@ public class Worksheet2 implements Worksheet2Interface {
      */
 
     /**
-     * This method is used to insert an integer into the given Tree a. Employs the balance method to
-     * maintain the properties of an AVL tree.
+     * This method is used to insert an integer into the given Tree a. Returns a Tree with the the same integers as
+     * Tree a with integer x added in the appropriate place. If x is already in the tree a Tree will be returned without
+     * the extra integer added. Employs the balance method to maintain the properties of an AVL tree.
      *
      * @param x Integer representing the value to be inserted.
      * @param a Binary search tree containing integers. Tree must already a height balanced binary search tree.
@@ -269,8 +297,9 @@ public class Worksheet2 implements Worksheet2Interface {
     }
 
     /**
-     * This method is used to delete an integer from the given Tree a. Employs the balance method to
-     * maintain the properties of an AVL tree.
+     * deleteHB is used to delete an integer from the given Tree a, returns a tree with the given integer x removed.
+     * If the integer cannot be found a Tree with the same values as the original is returned.
+     * Employs the balance method to maintain the properties of an AVL tree.
      *
      * @param x Integer representing the value to be deleted.
      * @param a Binary search tree containing integers.
@@ -300,16 +329,21 @@ public class Worksheet2 implements Worksheet2Interface {
     }
 
     /**
-     * This method performs the balancing necessary to maintain an AVL tree. balancing is performed in constant time.
+     * balance method performs the balancing necessary to maintain an AVL tree. balancing is performed in constant time.
+     * The method accepts a Tree of integers. and returns a Tree of integers rearranged in the appropriate order.
+     * Rotation will only be performed if the height difference between left and
+     * right is 2. Otherwise the given tree is returned.
+     * e.g.
+     * left - right == 2 || left - right == -2
      *
-     * @param a Binary search tree containing integers.
-     * @return The values of Tree a rotated in the appropriate manner
+     * @param a Binary search tree containing integers. Method only balances if variable height is equal to  2 or -2.
+     * @return The values of Tree a rotated in the appropriate manner.
      */
     public static Tree balance(Tree a){
 
         int height = (a.getLeft().getHeight() - a.getRight().getHeight() );
 
-        if (height < -1 ) {
+        if (height == -2 ) {
             // right left case
             if (a.getRight().getLeft().getHeight() > a.getRight().getRight().getHeight()) {
                 return leftRotate(new Tree(a.getValue(), a.getLeft(), rightRotate(a.getRight())));
@@ -317,7 +351,7 @@ public class Worksheet2 implements Worksheet2Interface {
             } else {
                 return leftRotate(a);
             }
-        } else if (height > 1){
+        } else if (height == 2){
             // left right case
             if(a.getLeft().getRight().getHeight() >  a.getLeft().getLeft().getHeight()){
                 return rightRotate(new Tree(a.getValue(), leftRotate(a.getLeft()), a.getRight()));
@@ -331,27 +365,31 @@ public class Worksheet2 implements Worksheet2Interface {
     }
 
     /**
-     * Rotates right around the given node.
+     * rightRotate is exclusively a helper method for the balance method and should not be used by other methods.
+     * it takes a Treeand performs a single right rotate. Its a private method so no checks are made to see if the given
+     * tree is appropriate to be rotated
      *
      * @param pivot Binary search tree containing integers.
      * @return Tree with the values of the binary Tree pivot rotated to the right
      */
-    public static Tree rightRotate(Tree pivot) {
+    private static Tree rightRotate(Tree pivot) {
 
-        Tree b = (pivot.getLeft().getRight().isEmpty())? new Tree():pivot.getLeft().getRight();
+        Tree b = (pivot.getLeft().getRight().isEmpty()) ? new Tree():pivot.getLeft().getRight();
         Tree right = new Tree(pivot.getValue(), b, pivot.getRight());
         return new Tree(pivot.getLeft().getValue(), pivot.getLeft().getLeft(), right);
     }
 
     /**
-     * Rotates left around the given node.
+     * leftRotate is exclusively a helper method for the balance method and should not be used by other methods.
+     * it takes a Treeand performs a single left rotateIts a private method so no checks are made to see if the given
+     * tree is appropriate to be rotated
      *
      * @param pivot Binary search tree containing integers.
      * @return Tree with the values of the binary Tree pivot rotated to the left
      */
-    public static Tree leftRotate(Tree pivot) {
+    private static Tree leftRotate(Tree pivot) {
 
-            Tree b = (pivot.getRight().getLeft().isEmpty())? new Tree():pivot.getRight().getLeft();
+            Tree b = (pivot.getRight().getLeft().isEmpty()) ? new Tree():pivot.getRight().getLeft();
             Tree left = new Tree(pivot.getValue(), pivot.getLeft(), b);
             return new Tree(pivot.getRight().getValue(), left, pivot.getRight().getRight());
     }
@@ -375,6 +413,8 @@ public class Worksheet2 implements Worksheet2Interface {
     }
 
     /**
+     * Main method used for quick testing as I created the methods.
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -409,7 +449,7 @@ public class Worksheet2 implements Worksheet2Interface {
 //        System.out.println(postorder(t));
 //        System.out.println(allPositive(a));
 //        System.out.println(isSearchTree(t));
-//        printDescending(t);
+        printDescending(t);
 //        System.out.println(max(t));
 //        System.out.println(delete(8, t));
 //        System.out.println(isHeightBalanced(t));
@@ -427,11 +467,27 @@ public class Worksheet2 implements Worksheet2Interface {
 //        System.out.println(delete(55, delete(38,delete(40, a))));
 //        System.out.println("balanced");
 //        System.out.println(deleteHB(55, deleteHB(38,deleteHB(40, a))));
-        System.out.println(balance(new Tree(10, new Tree(), new Tree(20, new Tree(15), new Tree()))));
-        System.out.println(balance(new Tree(10, new Tree(), new Tree(20, new Tree(), new Tree(30)))));
-        System.out.println(balance(new Tree(30, new Tree(20, new Tree(10), new Tree()), new Tree())));
-        System.out.println(balance(new Tree(30, new Tree(20, new Tree(), new Tree(25)), new Tree())));
-        }
+//        System.out.println(balance(new Tree(10, new Tree(), new Tree(20, new Tree(15), new Tree()))));
+//        System.out.println(balance(new Tree(10, new Tree(), new Tree(20, new Tree(), new Tree(30)))));
+//        System.out.println(balance(new Tree(30, new Tree(20, new Tree(10), new Tree()), new Tree())));
+//        System.out.println(balance(new Tree(30, new Tree(20, new Tree(), new Tree(25)), new Tree())));
+//
+//        Tree t1;
+//
+//        t1 = new Tree(10,
+//                new Tree(5, new Tree(1, new Tree(-5), new Tree(4)), new Tree(8, new Tree(6), new Tree(9))),
+//                new Tree(15, new Tree(13, new Tree(11), new Tree(14)), new Tree(20, new Tree(16), new Tree(25))));
+//        System.out.println(t1);
+//        t1 = Worksheet2.deleteHB(9, t1);
+//        System.out.println(t1);
+//
+//        t1 = Worksheet2.deleteHB(8, t1);
+//        System.out.println(t1);
+//
+//        t1 = Worksheet2.deleteHB(6, t1);
+//        System.out.println(t1);
+
+    }
     }
 
 
